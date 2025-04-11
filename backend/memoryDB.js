@@ -1,5 +1,3 @@
-// Types
-// Note: Type definitions are removed as they are specific to TypeScript
 
 // Database
 const db = {

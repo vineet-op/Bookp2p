@@ -13,7 +13,6 @@ import {
     getListings,
     getListingById,
     getListingsByOwner,
-    updateListing,
     deleteListing,
 } from './memoryDB.js';
 
@@ -46,7 +45,6 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.get("/", (req, res) => {
     res.json("He")
 })
-
 
 //*Auth EndPoints (Register)
 app.post('/register', async (req, res) => {
@@ -98,7 +96,7 @@ app.get("/books/listings", async (req, res) => {
 });
 
 
-//* Add Books listings
+//* Added Books listings
 app.post("/books/listings/add", upload.single('image'), async (req, res) => {
     try {
         const { title, author, genre, location, ownerContact } = req.body
@@ -121,6 +119,75 @@ app.post("/books/listings/add", upload.single('image'), async (req, res) => {
         res.status(500).json({ error: 'Failed to Create Book Listings' });
     }
 })
+
+
+//* Get Books by id
+app.get("/books/listings/:id", async (req, res) => {
+    try {
+        const bookId = req.params.id.toString().trim();
+        const book = await getListingById(bookId);
+        console.log("Fetching book with ID:", bookId);
+        if (book) {
+            res.json({
+                book: book
+            });
+        }
+        else {
+            res.status(404).json({ error: "Book not found" });
+
+
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to find book with that ID" });
+    }
+})
+
+
+//* Delete Books By id
+app.delete("/books/listings/:id", async (req, res) => {
+    try {
+        const bookId = req.params.id;
+
+        const response = await deleteListing(bookId);
+
+        if (response) {
+            res.status(200).json({ message: "Deleted Successfully" });
+        } else {
+            res.status(404).json({ error: "Book listing not found" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to delete book listing" });
+    }
+});
+
+
+//* Get Books by Owner ID
+
+app.get("//books/listings/:owner", async (req, res) => {
+    try {
+
+        const ownerId = req.query.owner;
+
+        if (!ownerId) {
+            res.json({
+                message: "Owner not found"
+            })
+        }
+
+        const ownerBooks = await getListingsByOwner(ownerId)
+
+        res.json({
+            ownerBooks: ownerBooks
+        })
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to delete book listing" });
+    }
+})
+
 
 
 
