@@ -24,8 +24,8 @@ export const findUserByEmail = (email) => {
     return db.users.find(user => user.email === email);
 };
 
-export const validateUser = (email, password) => {
-    return db.users.find(user => user.email === email && user.password === password);
+export const validateUser = (email, password, role) => {
+    return db.users.find(user => user.email === email && user.password === password && user.role === role);
 };
 
 // Listing operations
@@ -70,19 +70,18 @@ export const deleteListing = (id) => {
 export const seedDatabase = () => {
     // Add some test users
     addUser({
-        name: 'Book Owner',
-        email: 'owner@example.com',
+        name: 'Owner',
+        email: 'owner@dev.com',
         password: 'password123',
         mobileNumber: '1234567890',
         role: 'owner',
     });
-
     addUser({
-        name: 'Book Seeker',
-        email: 'seeker@example.com',
+        name: 'Seller',
+        email: 'seller@dev.com',
         password: 'password123',
-        mobileNumber: '0987654321',
-        role: 'seeker',
+        mobileNumber: '1234567890',
+        role: 'seller',
     });
 
     // Add some test listings

@@ -65,9 +65,10 @@ app.post('/register', async (req, res) => {
 
 //* Auth Endpoint (Login)
 app.post('/login', (req, res) => {
-    const { email, password } = req.body;
-    const user = validateUser(email, password);
+    const { email, password, role } = req.body;
+    const user = validateUser(email, password, role);
 
+    console.log(user)
     if (!user) {
         return res.status(401).json({ error: 'Invalid credentials' });
     }
