@@ -48,14 +48,14 @@ app.get("/", (req, res) => {
 
 //*Auth EndPoints (Register)
 app.post('/register', async (req, res) => {
-    const { name, email, password, mobileNumber, role } = req.body;
+    const { name, email, password, mobile, role } = req.body;
 
-    if (!name || !email || !password || !mobileNumber || !role) {
+    if (!name || !email || !password || !mobile || !role) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
 
     try {
-        const newUser = await addUser({ name, email, password, mobileNumber, role });
+        const newUser = await addUser({ name, email, password, mobile, role });
         res.status(201).json(newUser);
     } catch (error) {
         res.status(500).json({ error: 'Failed to create user' });
@@ -193,4 +193,4 @@ app.get("//books/listings/:owner", async (req, res) => {
 
 
 
-app.listen(3000, () => console.log("Running on PORT 3000"))
+app.listen(8000, () => console.log("Running on PORT 8000"))

@@ -19,12 +19,12 @@ export default function SignupPage() {
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
     const [userData, setUserData] = useState([]);
+    const router = useRouter();
 
     async function RegisterUser() {
 
-        const router = useRouter();
         try {
-            const response = await axios.post("http://localhost:3000/register", {
+            const response = await axios.post("http://localhost:8000/register", {
                 name,
                 email,
                 password,
