@@ -23,8 +23,8 @@ export default function LoginPage() {
 
     const router = useRouter()
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('owner@dev.com');
+    const [password, setPassword] = useState('password123');
     const [role, setRole] = useState('');
 
     async function handleLogin() {
@@ -38,7 +38,14 @@ export default function LoginPage() {
                 toast.error("Login failed, please try again.");
             } else {
                 toast.success("Login successful.");
-                router.push("/booksadd")
+                localStorage.setItem('role', role);
+
+                if (role === "owner") {
+                    router.push("/ownerbooks")
+                }
+                else {
+                    router.push("/booklists")
+                }
             }
 
             setEmail("")
@@ -77,7 +84,7 @@ export default function LoginPage() {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="seller">Seller</SelectItem>
-                                <SelectItem value="owner">Buyer</SelectItem>
+                                <SelectItem value="owner">Owner</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>

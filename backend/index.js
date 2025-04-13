@@ -53,13 +53,13 @@ app.get("/", (req, res) => {
 
 //*Auth EndPoints (Register)
 app.post('/register', async (req, res) => {
-    const { name, email, password, mobile, role } = req.body;
-
-    if (!name || !email || !password || !mobile || !role) {
-        return res.status(400).json({ error: 'Missing required fields' });
-    }
-
     try {
+        const { name, email, password, mobile, role } = req.body;
+
+        if (!name || !email || !password || !mobile || !role) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
+
         const newUser = await addUser({ name, email, password, mobile, role });
         res.status(201).json(newUser);
     } catch (error) {
@@ -69,23 +69,28 @@ app.post('/register', async (req, res) => {
 
 
 //* Auth Endpoint (Login)
-app.post('/login', (req, res) => {
-    const { email, password, role } = req.body;
-    const user = validateUser(email, password, role);
+app.post('/login', async (req, res) => {
+    try {
+        const { email, password, role } = req.body;
+        const user = await validateUser(email, password, role);
 
-    console.log(user)
-    if (!user) {
-        return res.status(401).json({ error: 'Invalid credentials' });
-    }
-    // In a real app, you'd return a token here
-    res.json({
-        user: {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role
+        console.log("User login", user);
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid credentials' });
         }
-    });
+        // In a real app, you'd return a token here
+        res.json({
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
+        });
+    } catch (error) {
+        console.error("Login error:", error);
+        res.status(500).json({ error: 'Failed to login' });
+    }
 });
 
 
@@ -141,7 +146,6 @@ app.get("/books/listings/:id", async (req, res) => {
         else {
             res.status(404).json({ error: "Book not found" });
 
-
         }
     } catch (error) {
         console.error(error);
@@ -170,17 +174,18 @@ app.delete("/books/listings/:id", async (req, res) => {
 
 
 //* Get Books by Owner ID
-
-app.get("//books/listings/:owner", async (req, res) => {
+app.get("/books/listings/user/:owner", async (req, res) => {
     try {
 
-        const ownerId = req.query.owner;
+        const ownerId = req.params.owner;
+
 
         if (!ownerId) {
-            res.json({
-                message: "Owner not found"
-            })
+            return res.status(400).json({
+                message: "Owner ID is required"
+            });
         }
+
 
         const ownerBooks = await getListingsByOwner(ownerId)
 

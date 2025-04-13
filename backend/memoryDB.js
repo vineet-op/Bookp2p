@@ -1,4 +1,3 @@
-
 // Database
 const db = {
     users: [],
@@ -83,15 +82,57 @@ export const seedDatabase = () => {
         mobileNumber: '1234567890',
         role: 'seller',
     });
+    addUser({
+        name: 'User 3',
+        email: 'user3@dev.com',
+        password: 'password123',
+        mobileNumber: '1234567890',
+        role: 'owner',
+    });
+    addUser({
+        name: 'User 4',
+        email: 'user4@dev.com',
+        password: 'password123',
+        mobileNumber: '1234567890',
+        role: 'owner',
+    });
 
     // Add some test listings
     addListing({
-        title: 'The Great Gatsby',
-        author: 'F. Scott Fitzgerald',
-        genre: 'Classic',
+        title: 'How to Win friends and influence people',
+        author: 'Dale Garnegie',
+        genre: 'Selfhelp',
         location: 'New York',
         ownerId: db.users[0].id,
         ownerContact: 'owner@example.com',
+        imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/71DMTvV+P2L.jpg'
+    });
+    addListing({
+        title: 'Psychology of money',
+        author: 'Morgan Housel',
+        genre: 'Money',
+        location: 'New York',
+        ownerId: db.users[1].id,
+        ownerContact: 'owner@example.com',
+        imageUrl: 'https://d1fa9n6k2ql7on.cloudfront.net/CEPG68IH1DLICS71664921398.jpg'
+    });
+    addListing({
+        title: 'The Almanack of Naval Ravikant',
+        author: 'Naval Ravikant',
+        genre: 'Selfhelp',
+        location: 'San Francisco',
+        ownerId: db.users[2].id,
+        ownerContact: 'owner@example.com',
+        imageUrl: 'https://cdn.porchlightbooks.com/assets/images/books/2/22/222/4222/9781544514222.jpg?w=1000&scale=both&mode=crop&u=638682663387870000'
+    });
+    addListing({
+        title: 'Zero to One',
+        author: 'Peter Thiel',
+        genre: 'Business',
+        location: 'San Francisco',
+        ownerId: db.users[3].id,
+        ownerContact: 'owner@example.com',
+        imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/71uAI28kJuL.jpg'
     });
 };
 

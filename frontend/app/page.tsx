@@ -19,26 +19,6 @@ export default function Home() {
             <BookOpen className="h-6 w-6 text-primary" />
             <span className="text-xl font-bold">BookSwap</span>
           </div>
-          <nav className="hidden md:flex gap-6">
-            <Link href="#" className="text-sm font-medium hover:text-primary">
-              Browse Books
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:text-primary">
-              Sell Books
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:text-primary">
-              How It Works
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:text-primary">
-              About Us
-            </Link>
-          </nav>
-          <div className="flex items-center gap-4">
-            <Link href="#" className="text-sm font-medium hover:text-primary hidden sm:inline-block">
-              Sign In
-            </Link>
-            <Button size="sm">Get Started</Button>
-          </div>
         </div>
       </header>
 
@@ -47,7 +27,7 @@ export default function Home() {
         <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
-              <div className="space-y-4">
+              <div className="space-y-4 mx-2 ">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl ">
                   Your Community Book Marketplace
                 </h1>
@@ -57,11 +37,11 @@ export default function Home() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button size="lg" className="cursor-pointer" onClick={() => router.push('/signin')}>
-                    Sign in as Seller
+                    Login
                     <ChevronRight className="ml-2 h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="lg" className="cursor-pointer">
-                    Signin as Buyer
+                  <Button onClick={() => router.push('/signup')} variant="outline" size="lg" className="cursor-pointer" >
+                    Signup
                     <ChevronRight className="ml-2 h-4 w-4" />
                   </Button>
                 </div>
@@ -70,7 +50,6 @@ export default function Home() {
                 <img
                   src="https://media.gettyimages.com/id/1173824984/photo/books-on-shelves-in-bookstore.jpg?s=612x612&w=0&k=20&c=ZRolsPgY6FrrTG1IaZrnx8dGe_0uO0PJ7jr5eWb6xfY="
                   alt="Books on a shelf"
-                  className=""
                 />
               </div>
             </div>
@@ -213,18 +192,6 @@ export default function Home() {
                 <p className="max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Create an account today and start buying or selling books with people in your area.
                 </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" variant="secondary">
-                  Sign Up Now
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
-                >
-                  Learn More
-                </Button>
               </div>
             </div>
           </div>
