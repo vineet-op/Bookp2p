@@ -37,8 +37,8 @@ export default function BookDetails() {
     const [about, setAbout] = useState('')
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bookp2pbackend-production.up.railway.app';
 
-    const ai = new GoogleGenAI({ apiKey: "AIzaSyDw0mRlL8JgavHCDocaqY6hu7jjMQzacLI" });
-    console.log(about);
+    const ai = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_KEY || '' });
+    // console.log(about);
 
 
 
