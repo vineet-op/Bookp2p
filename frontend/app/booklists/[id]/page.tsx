@@ -7,8 +7,9 @@ import axios from "axios"
 import { Calendar, MapPin, User, Mail, BookOpen } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import Image from "next/image"
 
 interface BookType {
     title?: string;
@@ -105,7 +106,7 @@ export default function BookDetails() {
                                     <CardDescription>Information about this book</CardDescription>
                                 </div>
                                 <div>
-                                    <img className="h-full w-60" src={book.imageUrl} alt="bookimage" />
+                                    <Image src={book.imageUrl || ''} alt="bookimage" layout="fixed" width={60} height={90} />
                                 </div>
                             </div>
                         </CardHeader>
@@ -133,9 +134,7 @@ export default function BookDetails() {
                             <div className="space-y-2">
                                 <h3 className="font-semibold">About this book</h3>
                                 <p className="text-muted-foreground">
-                                    "The Great Gatsby" is a 1925 novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long
-                                    Island, the novel depicts first-person narrator Nick Carraway's interactions with mysterious
-                                    millionaire Jay Gatsby and Gatsby's obsession to reunite with his former lover, Daisy Buchanan.
+                                    The Great Gatsby is a 1925 novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island the novel depicts first-person narrator Nick Carraway interactions with mysterious millionaire Jay Gatsby and Gatsby obsession to reunite with his former lover, Daisy Buchanan.
                                 </p>
                             </div>
                         </CardContent>

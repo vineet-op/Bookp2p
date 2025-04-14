@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 
 interface BookType {
     title?: string;
@@ -19,7 +20,7 @@ interface BookType {
     status?: string;
 }
 
-export default function booklists() {
+export default function Booklists() {
 
     const [books, setBooks] = useState<BookType[]>([])
     const [loading, setLoading] = useState<boolean>(false)
@@ -74,7 +75,7 @@ export default function booklists() {
 
                 <div className="mx-auto grid max-w-5xl gap-6 py-12 md:grid-cols-2 lg:grid-cols-4">
                     <AnimatePresence>
-                        {filteredBooks.map((book, index) => (
+                        {filteredBooks.map((book) => (
                             <Link href={`/booklists/${book.id}`} key={book.id}>
                                 <motion.div className="group relative overflow-hidden rounded-lg border"
                                     initial={{ opacity: 0, scale: 0.95 }}
@@ -83,12 +84,12 @@ export default function booklists() {
                                     transition={{ duration: 0.3, ease: "easeOut" }}>
 
                                     <div className="aspect-[3/4] bg-muted">
-                                        <img
+                                        <Image
                                             src={book.imageUrl || 'https://images-platform.99static.com//8vR0beE4zXRvHASM1W0kfT4iTYM=/413x198:1446x1231/fit-in/500x500/projects-files/157/15730/1573011/6e49d162-09d7-43f7-93b2-e1a9258ebc93.jpg'}
                                             alt={`Book cover ${book.title}`}
-                                            width={300}
-                                            height={450}
-                                            className="h-full w-full object-cover transition-all group-hover:scale-105"
+                                            layout="fill"
+                                            objectFit="cover"
+                                            className="transition-all group-hover:scale-105"
                                         />
                                     </div>
                                     <div className="p-4">

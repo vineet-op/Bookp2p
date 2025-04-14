@@ -4,6 +4,7 @@ import Link from "next/link"
 import { BookOpen, Search, DollarSign, ShoppingCart, BookMarked, Users, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 
 
 export default function Home() {
@@ -47,9 +48,11 @@ export default function Home() {
                 </div>
               </div>
               <div className="relative h-[350px] w-full rounded-xl overflow-hidden">
-                <img
+                <Image
                   src="https://media.gettyimages.com/id/1173824984/photo/books-on-shelves-in-bookstore.jpg?s=612x612&w=0&k=20&c=ZRolsPgY6FrrTG1IaZrnx8dGe_0uO0PJ7jr5eWb6xfY="
                   alt="Books on a shelf"
+                  layout="fill"
+                  objectFit="cover"
                 />
               </div>
             </div>
@@ -81,7 +84,7 @@ export default function Home() {
                     <div className="space-y-1">
                       <p className="text-lg font-medium leading-none">Create a listing</p>
                       <p className="text-sm text-muted-foreground">
-                        Add photos, set your price, and describe your book's condition.
+                        Add photos, set your price, and describe your books condition.
                       </p>
                     </div>
                   </li>

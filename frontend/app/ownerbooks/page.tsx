@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 interface Book {
     title: string;
@@ -20,7 +21,7 @@ interface Book {
     status: string;
 }
 
-export default function ownerbooks() {
+export default function Ownerbooks() {
 
     const [ownerbooks, setOwnerbooks] = useState<Book[]>([])
     const [loading, setLoading] = useState<boolean>(true)
@@ -30,7 +31,7 @@ export default function ownerbooks() {
         const fetchOwnerBooks = async () => {
             setLoading(true)
             try {
-                const response = await axios.get("http://localhost:8000/books/listings/user/f8llfwc")
+                const response = await axios.get("http://localhost:8000/books/listings/user/kqnri42")
                 setOwnerbooks(response.data.ownerBooks)
                 setLoading(false)
             } catch (error) {
@@ -68,12 +69,12 @@ export default function ownerbooks() {
                                     transition={{ duration: 0.3, ease: "easeOut" }}>
 
                                     <div className="aspect-[3/4] bg-muted">
-                                        <img
+                                        <Image
                                             src={book.imageUrl || 'https://images-platform.99static.com//8vR0beE4zXRvHASM1W0kfT4iTYM=/413x198:1446x1231/fit-in/500x500/projects-files/157/15730/1573011/6e49d162-09d7-43f7-93b2-e1a9258ebc93.jpg'}
                                             alt={`Book cover ${book.title}`}
-                                            width={300}
-                                            height={450}
-                                            className="h-full w-full object-cover transition-all group-hover:scale-105"
+                                            layout="fill"
+                                            objectFit="cover"
+                                            className="transition-all group-hover:scale-105"
                                         />
                                     </div>
                                     <div className="p-4">

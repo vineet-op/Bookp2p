@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useState } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { toast } from "sonner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function BookListingForm() {
     const [form, setForm] = useState({
@@ -55,15 +56,15 @@ export default function BookListingForm() {
 
         try {
             setLoading(true);
-            const response = await axios.post("http://localhost:8000/books/listings/add", formData);
+            await axios.post("http://localhost:8000/books/listings/add", formData);
             toast.success("Book listing created!");
             setForm({ title: "", author: "", genre: "", location: "", ownerContact: "" });
             setImage(null);
             setPreview(null);
 
-            setTimeout(() => {
-                router.push("/booklists")
-            }, 1000);
+
+            router.push("/booklists")
+
 
         } catch (err) {
             toast.error("Failed to create book listing");
@@ -71,6 +72,8 @@ export default function BookListingForm() {
         } finally {
             setLoading(false);
         }
+
+
     };
 
     return (
@@ -109,7 +112,7 @@ export default function BookListingForm() {
                     <div className="grid gap-2 ">
                         <Label htmlFor="image">Upload Image</Label>
                         <Input type="file" accept="image/*" onChange={handleImageChange} className="cursor-pointer" />
-                        {preview && <img src={preview} alt="Preview" className="w-32 h-32 object-cover mt-2 rounded-md" />}
+                        {preview && <Image src={preview} alt="Preview" layout="fixed" width={32} height={32} objectFit="cover" className="mt-2 rounded-md" />}
                     </div>
                 </CardContent>
 
