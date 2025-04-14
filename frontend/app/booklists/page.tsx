@@ -20,16 +20,19 @@ interface BookType {
     status?: string;
 }
 
+
+
 export default function Booklists() {
 
     const [books, setBooks] = useState<BookType[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [searchTerm, setSearchTerm] = useState<string>("")
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
     async function fetchAllBooks() {
         setLoading(true)
         try {
-            const response = await axios.get("http://localhost:8000/books/listings")
+            const response = await axios.get(`${baseUrl}/books/listings`)
             setBooks(response.data.allListings)
             setLoading(false)
         } catch (error) {
