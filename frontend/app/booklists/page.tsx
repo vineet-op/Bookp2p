@@ -27,7 +27,7 @@ export default function Booklists() {
     const [books, setBooks] = useState<BookType[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [searchTerm, setSearchTerm] = useState<string>("")
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bookp2pbackend-production.up.railway.app';
 
     async function fetchAllBooks() {
         setLoading(true)
@@ -35,6 +35,7 @@ export default function Booklists() {
             const response = await axios.get(`${baseUrl}/books/listings`)
             setBooks(response.data.allListings)
             setLoading(false)
+            console.log(books);
         } catch (error) {
             console.error("Error fetching books:", error)
             setLoading(false)
