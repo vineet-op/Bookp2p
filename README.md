@@ -6,8 +6,7 @@ A simple full-stack Book Exchange platform where users can register as **Owners*
 
 ## 🚀 Demo
 
-👉 Live Frontend: [https://book-exchange-frontend.vercel.app](https://book-exchange-frontend.vercel.app)  
-🔗 Backend API (Render): [https://book-exchange-backend.onrender.com](https://book-exchange-backend.onrender.com)
+👉 Demo Video: https://drive.google.com/file/d/1-qLM9GS5Idk9Qu14LEigl6Xvi2luBLI5/view?usp=sharing
 
 > ⚠️ Note: Since the backend uses in-memory storage, all data resets on server restart.
 
@@ -45,6 +44,7 @@ A simple full-stack Book Exchange platform where users can register as **Owners*
 - ✨ Micro animations
 - 📚 Add, view, update & delete book listings
 - 📚 Add Book cover image
+- 📦 AI Generated Summary
 - 🔒 Filtering the books (searchable)
 - 🔁 Demo data seeded on server start
 - 📦 Organized folder structure for frontend/backend
