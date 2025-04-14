@@ -12,6 +12,16 @@ const nextConfig: NextConfig = {
         protocol: 'http',
         hostname: 'localhost', // allow from localhost
       },
+      {
+        protocol: 'https',
+        hostname: 'bookp2pbackend-production.up.railway.app',
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'bookp2pbackend-production.up.railway.app',
+        pathname: '/uploads/**',
+      },
     ],
   },
 };

@@ -22,7 +22,7 @@ export default function BookListingForm() {
     const [image, setImage] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
-
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bookp2pbackend-production.up.railway.app';
     const router = useRouter()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -56,13 +56,11 @@ export default function BookListingForm() {
 
         try {
             setLoading(true);
-            await axios.post("http://localhost:8000/books/listings/add", formData);
+            await axios.post(`${baseUrl}/books/listings/add`, formData);
             toast.success("Book listing created!");
             setForm({ title: "", author: "", genre: "", location: "", ownerContact: "" });
             setImage(null);
             setPreview(null);
-
-
             router.push("/booklists")
 
 

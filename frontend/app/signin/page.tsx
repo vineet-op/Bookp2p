@@ -26,10 +26,11 @@ export default function LoginPage() {
     const [email, setEmail] = useState('owner@dev.com');
     const [password, setPassword] = useState('password123');
     const [role, setRole] = useState('');
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bookp2pbackend-production.up.railway.app';
 
     async function handleLogin() {
         try {
-            const response = await axios.post('http://localhost:8000/login', {
+            const response = await axios.post(`${baseUrl}/login`, {
                 email,
                 password,
                 role

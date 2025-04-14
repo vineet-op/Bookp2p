@@ -20,11 +20,12 @@ export default function SignupPage() {
     const [role, setRole] = useState('');
     const [userData, setUserData] = useState([]);
     const router = useRouter();
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bookp2pbackend-production.up.railway.app';
 
     async function RegisterUser() {
 
         try {
-            const response = await axios.post("http://localhost:8000/register", {
+            const response = await axios.post(`${baseUrl}/register`, {
                 name,
                 email,
                 password,

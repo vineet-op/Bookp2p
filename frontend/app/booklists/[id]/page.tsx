@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import Image from "next/image"
+import { GoogleGenAI } from "@google/genai";
 
 interface BookType {
     title?: string;
@@ -24,6 +25,8 @@ interface BookType {
     ownerId?: string
 }
 
+
+
 export default function BookDetails() {
 
     const router = useRouter()
@@ -31,6 +34,13 @@ export default function BookDetails() {
     const [book, setBook] = useState<BookType | null>(null);
     const [loading, setLoading] = useState(true);
     const [isLoaded, setIsLoaded] = useState(false)
+    const [about, setAbout] = useState('')
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bookp2pbackend-production.up.railway.app';
+
+    const ai = new GoogleGenAI({ apiKey: "AIzaSyDw0mRlL8JgavHCDocaqY6hu7jjMQzacLI" });
+    console.log(about);
+
+
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString("en-US", {
@@ -59,8 +69,27 @@ export default function BookDetails() {
     useEffect(() => {
         async function fetchBook() {
             try {
-                const response = await axios.get(`http://localhost:8000/books/listings/${id}`);
-                setBook(response.data.book);
+                const response = await axios.get(`${baseUrl}/books/listings/${id}`);
+                const bookData = response.data.book;
+                setBook(bookData);
+
+                if (bookData?.title) {
+                    const prompt = `Write a short and engaging summary about the book titled "${bookData.title}".`;
+
+                    const AIresponse = await ai.models.generateContent({
+                        model: "gemini-2.0-flash",
+                        contents: [
+                            {
+                                role: "user",
+                                parts: [{ text: prompt }],
+                            },
+                        ],
+                    });
+
+                    console.log(AIresponse.text);
+                    setAbout(AIresponse.text || "");
+                }
+
                 setIsLoaded(true);
             } catch (error) {
                 console.error("Error fetching book:", error);
@@ -71,6 +100,7 @@ export default function BookDetails() {
 
         if (id) fetchBook();
     }, [id]);
+
 
     if (loading) return <div className="text-center py-10">Loading book details...</div>;
 
@@ -134,7 +164,7 @@ export default function BookDetails() {
                             <div className="space-y-2">
                                 <h3 className="font-semibold">About this book</h3>
                                 <p className="text-muted-foreground">
-                                    The Great Gatsby is a 1925 novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island the novel depicts first-person narrator Nick Carraway interactions with mysterious millionaire Jay Gatsby and Gatsby obsession to reunite with his former lover, Daisy Buchanan.
+                                    {about ? about : <span className="italic text-sm">Generating summary...</span>}
                                 </p>
                             </div>
                         </CardContent>

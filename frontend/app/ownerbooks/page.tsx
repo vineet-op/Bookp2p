@@ -26,12 +26,13 @@ export default function Ownerbooks() {
     const [ownerbooks, setOwnerbooks] = useState<Book[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const router = useRouter()
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bookp2pbackend-production.up.railway.app';
 
     useEffect(() => {
         const fetchOwnerBooks = async () => {
             setLoading(true)
             try {
-                const response = await axios.get("http://localhost:8000/books/listings/user/kqnri42")
+                const response = await axios.get(`${baseUrl}/books/listings/user/8l82k9s`)
                 setOwnerbooks(response.data.ownerBooks)
                 setLoading(false)
             } catch (error) {

@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
 
 interface BookType {
     title?: string;
@@ -28,14 +30,14 @@ export default function Booklists() {
     const [loading, setLoading] = useState<boolean>(false)
     const [searchTerm, setSearchTerm] = useState<string>("")
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://bookp2pbackend-production.up.railway.app';
-
+    const router = useRouter()
     async function fetchAllBooks() {
         setLoading(true)
         try {
             const response = await axios.get(`${baseUrl}/books/listings`)
+            console.log(response);
             setBooks(response.data.allListings)
             setLoading(false)
-            console.log(books);
         } catch (error) {
             console.error("Error fetching books:", error)
             setLoading(false)
@@ -96,9 +98,9 @@ export default function Booklists() {
                                             className="transition-all group-hover:scale-105"
                                         />
                                     </div>
-                                    <div className="p-4">
-                                        <h3 className="font-semibold">{book?.title}</h3>
-                                        <p className="text-sm text-muted-foreground">{book?.author}</p>
+                                    <div className="p-5">
+                                        <h3 className="font-semibold">{book.title}</h3>
+                                        <p className="text-sm text-muted-foreground">{book.author}</p>
                                         <div className="mt-2 flex items-center justify-between">
                                             <span className="text-xs text-muted-foreground">Like New</span>
                                         </div>
@@ -107,6 +109,9 @@ export default function Booklists() {
                             </Link>
                         ))}
                     </AnimatePresence>
+                </div>
+                <div onClick={() => router.push("/booksadd")} className=" flex w-screen justify-center items-center px-2">
+                    <Button>Add Books</Button>
                 </div>
             </div>
             )
